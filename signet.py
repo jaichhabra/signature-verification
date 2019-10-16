@@ -16,15 +16,15 @@ def build_architecture(input_shape, trained_weights=None):
     net['input'] = InputLayer(input_shape)
 
     net['conv1'] = batch_norm(Conv2DLayer(net['input'], num_filters=96, filter_size=11, stride=4, flip_filters=False))
-    net['pool1'] = MaxPool2DLayer(net['conv1'], pool_size=3, stride=2)
+    net['pool1'] = MaxPool2DLayer(net['conv1'], pool_size=3, stride=1)
 
     net['conv2'] = batch_norm(Conv2DLayer(net['pool1'], num_filters=256, filter_size=5, pad=2, flip_filters=False))
-    net['pool2'] = MaxPool2DLayer(net['conv2'], pool_size=3, stride=2)
+    net['pool2'] = MaxPool2DLayer(net['conv2'], pool_size=3, stride=4)
 
     net['conv3'] = batch_norm(Conv2DLayer(net['pool2'], num_filters=384, filter_size=3, pad=1, flip_filters=False))
     net['conv4'] = batch_norm(Conv2DLayer(net['conv3'], num_filters=384, filter_size=3, pad=1, flip_filters=False))
     net['conv5'] = batch_norm(Conv2DLayer(net['conv4'], num_filters=256, filter_size=3, pad=1, flip_filters=False))
-    net['pool5'] = MaxPool2DLayer(net['conv5'], pool_size=3, stride=2)
+    net['pool5'] = MaxPool2DLayer(net['conv5'], pool_size=3, stride=6)
 
     net['fc1'] = batch_norm(DenseLayer(net['pool5'], num_units=2048))
     net['fc2'] = batch_norm(DenseLayer(net['fc1'], num_units=2048))
